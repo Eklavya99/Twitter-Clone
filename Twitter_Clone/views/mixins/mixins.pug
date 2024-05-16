@@ -1,0 +1,125 @@
+mixin createPostForm(loggedInUser)
+    .postFormContainer
+        .userImageContainer
+            img(src=loggedInUser.profilePic, alt="user profile picture")
+        .textAreaContainer
+            textarea#postText(placeholder="What is happening?")
+            .buttonContainer
+                button#submitPost(disabled="") Post
+
+mixin createReplyModal(loggedInUser)
+    #replyModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='replyModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#replyModalLabel.modal-title Reply
+                .modal-body
+                        #postSectionContainer
+                        .replyFormContainer
+                            .userImageContainer
+                                img(src=loggedInUser.profilePic, alt="user profile picture")
+                            .textAreaContainer
+                                textarea#replyText(placeholder="Reply...")
+                .modal-footer
+                    button#submitReply.btn.btn-primary(type='button', disabled="") Post Reply
+
+mixin createDeleteModal()
+    #deletePostModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='deletePostModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#deletePostModalLabel.modal-title Delete the post?
+                .modal-body
+                        p Are you sure you want to deleted this tweet?
+                .modal-footer
+                    button#submitDeletePost.btn.btn-primary(type='button') Delete
+
+
+mixin createImageUploadModal()
+    #profileImageUploadModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='profileImageUploadModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#profileImageUploadModalLabel.modal-title Upload a new profile picture.
+                .modal-body
+                        input#imageFile(type="file", name="newProfileImage")
+                        .imagePreviewContainer
+                            img#imagePreview
+                .modal-footer
+                    button#profileImageUploadBtn.btn.btn-primary(type='button') Upload
+
+mixin createCoverPhotoUploadModal()
+    #coverPhotoUploadModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='coverPhotoUploadModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#coverPhotoUploadModalLabel.modal-title Upload a new cover photo.
+                .modal-body
+                        input#coverPhotoFile(type="file", name="newCoverPhoto")
+                        .imagePreviewContainer
+                            img#coverPhotoPreview
+                .modal-footer
+                    button#coverPhotoUploadBtn.btn.btn-primary(type='button') Upload
+
+mixin createPinPostModal()
+    #PinPostModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='PinPostModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#PinPostUploadModalLabel.modal-title Pin this post?
+                .modal-body
+                        p This post will appear at the top of your profile.
+                .modal-footer
+                    button#submitPinPostBtn.btn.btn-primary(type='button') Pin
+
+mixin unpinPostModal()
+    #unpinPostModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='unpinPostModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#unpinPostModalLabel.modal-title Unpin this post?
+                .modal-body
+                        p This post will be unpinned from the top of your profile.
+                .modal-footer
+                    button#unpinPostBtn.btn.btn-primary(type='button') Unpin
+
+mixin modifyChatNameModal(chat)
+    #modifyChatNameModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modifyChatNameModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                        h5#modifyChatNameModalLabel.modal-title New chat name?
+                .modal-body
+                        input#chatNameText(type="text", placeholder="Enter a name for this chat", value=chat.chatName)
+                .modal-footer
+                    button#modifyChatNameModalButton.btn.btn-primary(type='button') Save
+
+
+mixin createFollowBtn(user, isFollowing)
+    - btnText = isFollowing ? "Following" : "Follow";
+    - btnClass = isFollowing ? "followBtn following" : "followBtn";
+    button(class=btnClass, data-user=user._id) #{btnText}
+
+mixin createTab(name, href, isSelected)
+    -className = isSelected ? "tab active" : "tab"
+    a(href=href, class = className)
+        span #{name}
+
+mixin createChatImage(chatData, loggedInUser)
+    if(!chatData)
+        return 
+    - let i = 0
+    - let maxImagesToShow = 3
+    - let remainingUsers = chatData.users.length - maxImagesToShow
+    - remainingUsers--
+    .chatImagesContainer
+        if remainingUsers > 0
+            .userCount 
+                span + #{remainingUsers}
+        each user in chatData.users
+            if chatData.users.length != 1 && user._id == loggedInUser._id
+                - continue
+            else if i >= maxImagesToShow
+                - break
+            img(src=user.profilePic, alt="User's profile picture", title=user.firstName)
+            - i++

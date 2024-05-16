@@ -1,0 +1,57 @@
+extends layouts/main-layout.pug
+block content
+    if !userProfile
+        span.user-not-found-msg Check the username to see if its correct!
+    else
+        script.
+            let userId = "!{userProfile._id}";
+            let selectedTab = "!{selectedTab}";
+        - followerCount = userProfile.followers.length 
+        - followingCount = userProfile.following.length
+        div.ProfileHeader
+            .userCoverPhotoContainer
+                .userCoverPhoto
+                    if userProfile.coverPhoto
+                        img(src=userProfile.coverPhoto, alt="cover photo")
+                    if userProfile._id == loggedInUser._id
+                            button.coverPhotoUploadBtn(data-bs-toggle="modal", data-bs-target="#coverPhotoUploadModal")
+                                i.fa-solid.fa-camera
+                .userImageContainer 
+                    img(src=userProfile.profilePic, alt="User profile picture")
+                    if userProfile._id == loggedInUser._id
+                        button.profilePicUploadBtn(data-bs-toggle="modal", data-bs-target="#profileImageUploadModal")
+                            i.fa-solid.fa-camera
+            .profileButtons
+                if userProfile._id != loggedInUser._id
+                    a.profileMessageBtn(href=`/messages/${userProfile._id}`)
+                        i.fas.fa-envelope
+                    - let userProfileId = userProfile._id.toString();
+                    - if(loggedInUser.following && loggedInUser.following.includes(userProfileId))
+                        +createFollowBtn(userProfile, true)
+                    - else
+                        +createFollowBtn(userProfile, false)            
+            .userDetailsContainer
+                span.displayName #{userProfile.firstName} #{userProfile.lastName}
+                span.username @#{userProfile.username}
+                span.description #{userProfile.description} 
+                .followersContainer 
+                    a(href=`/profile/${userProfile.username}/following`)
+                        span.value #{followingCount}
+                        span Following
+                    a(href=`/profile/${userProfile.username}/followers`)
+                        span#followersValue.value #{followerCount}
+                        span Followers
+        .tabsContainer 
+            +createTab("Posts", `/profile/${userProfile.username}`, selectedTab != "replies")               
+            +createTab("Replies", `/profile/${userProfile.username}/replies`, selectedTab == "replies")
+        .pinnedPostContainer
+        .postsContainer
+        +createReplyModal(loggedInUser)
+        +createDeleteModal(loggedInUser)
+        +createImageUploadModal()
+        +createCoverPhotoUploadModal()
+        +createPinPostModal()
+        +unpinPostModal()
+
+block scripts
+    script(src="/js/profile.js")

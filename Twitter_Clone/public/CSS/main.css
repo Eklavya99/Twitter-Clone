@@ -1,0 +1,833 @@
+:root {
+    --twitterBlue: #1da1f2;
+    --twitterBlue_disabled: #65b4e2d0;
+    --lightGray: #babdc0;
+    --darkGray: #bebebe98;
+    --defaultPadding: 15px;
+}
+
+/* ---MAIN LAYOUT STYLES--- */
+
+html,
+body {
+    height: 100vh;
+    min-height: 100vh;
+    background-color: #fff;
+    font-weight: 300;
+}
+
+.row {
+    height: 100vh;
+}
+
+* {
+    outline: none !important;
+    font-family: "Work Sans", sans-serif;
+}
+h1 {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ---NAV BAR STYLES ---*/
+
+.nav-bar {
+    position: fixed;
+    top: 25%;
+    left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: flex-start;
+    /* border-left: 0.3px dashed var(--lightGray); */
+    max-width: 13%;
+}
+.nav-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 1.5rem;
+    height: 55px;
+    position: relative;
+}
+a > i {
+    font-size: 1.3rem;
+    margin-right: 0.8rem;
+}
+.nav-bar a:hover {
+    background-color: #fff;
+    color: var(--twitterBlue);
+    border-radius: 25%;
+}
+button {
+    background-color: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.3);
+}
+button i,
+button span {
+    pointer-events: none;
+}
+a.logo > i {
+    color: var(--twitterBlue);
+    font-size: 2rem;
+}
+
+.mainSectionContainer {
+    height: 100%;
+    flex-grow: 1;
+    padding: 0;
+    width: 80%;
+    border-left: 1px solid var(--darkGray);
+    border-right: 1px solid var(--darkGray);
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer {
+    height: 60px;
+    padding: 8px var(--defaultPadding);
+    display: flex;
+    align-items: center;
+    border-bottom: 1.3px solid var(--lightGray);
+    flex-shrink: 0;
+}
+
+.titleContainer h1 {
+    flex: 1;
+    font-size: 25px;
+}
+
+/* ---POST STYLES--- */
+
+.postFormContainer {
+    display: flex;
+    padding: var(--defaultPadding);
+    border-bottom: 1px solid var(--lightGray);
+    flex-shrink: 0;
+}
+.postBody {
+    display: flex;
+    /* align-content: flex-start; */
+    justify-content: flex-start;
+    padding: 4px;
+    margin: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.userImageContainer {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
+.userImageContainer img {
+    width: 100%;
+    border-radius: 50%;
+    background-color: white;
+}
+.textAreaContainer {
+    flex: 1;
+    padding: var(--defaultPadding);
+}
+.textAreaContainer textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    font-size: 1.2rem;
+}
+#submitPost {
+    background-color: var(--twitterBlue);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 16px;
+}
+#submitPost:disabled {
+    background-color: var(--twitterBlue_disabled);
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    padding: var(--defaultPadding);
+    cursor: pointer;
+    border-bottom: 1px solid var(--lightGray);
+    flex-shrink: 0;
+    width: 100%;
+}
+.postContentContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    padding: var(--defaultPadding);
+}
+.postContent {
+    padding-left: var(--defaultPadding);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.username,
+.date {
+    color: rgb(155, 155, 155);
+}
+.displayName {
+    font-weight: bolder;
+}
+.displayName:hover {
+    text-decoration: underline;
+}
+
+.postFooter {
+    display: flex;
+    align-items: center;
+}
+
+.postFooter .postButton {
+    flex: 1;
+    display: flex;
+}
+.postFooter .postButton button {
+    padding: 0 5px;
+}
+.postHeader a,
+.header span {
+    padding-right: 5px;
+}
+
+.postButton button:hover {
+    background-color: #d4edff;
+    color: var(--twitterBlue);
+    border-radius: 50%;
+}
+
+.postButton.red button.active {
+    color: rgb(226, 34, 94);
+}
+.postButton.green button.active {
+    color: rgb(23, 191, 99);
+}
+
+.retweet-info {
+    padding: 5px;
+    font-size: 0.8rem;
+    color: rgb(0, 0, 0);
+    margin-bottom: 4px;
+    margin-left: 4px;
+    background-color: #a9a9a942;
+    border-radius: 8px;
+    width: 20%;
+    max-width: 30%;
+}
+
+.modal .post {
+    background: aliceblue;
+    padding: 0 0 var(--defaultPadding) 0;
+}
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 8px;
+}
+
+/* ---REPLY POST STYLES--- */
+
+.replyFormContainer {
+    display: flex;
+    flex-shrink: 0;
+    border-bottom: none;
+    padding: var(--defaultPadding);
+}
+#submitReply {
+    background-color: var(--twitterBlue);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 16px;
+}
+
+span.no-results {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    font-size: 1.5rem;
+}
+
+.replyFlag {
+    margin-bottom: 5px;
+}
+
+.replyFlag a {
+    color: rgba(0, 170, 255, 0.888);
+}
+.focus {
+    background-color: aliceblue;
+}
+
+.postHeader {
+    display: flex;
+}
+.postHeader .date {
+    flex: 1;
+    margin-left: 8px;
+}
+
+.user-not-found-msg {
+    padding: var(--defaultPadding);
+}
+
+.ProfileHeader .userCoverPhotoContainer {
+    height: 180px;
+    background-color: var(--twitterBlue);
+    position: relative;
+}
+
+.ProfileHeader .userImageContainer {
+    height: 132px;
+    width: 132px;
+    margin-left: 15px;
+    position: absolute;
+    bottom: -66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ProfileHeader .userImageContainer img {
+    border: 4px solid #fff;
+}
+.profileButtons {
+    text-align: right;
+    padding: var(--defaultPadding);
+    min-height: 66px;
+}
+
+.profileMessageBtn,
+.followBtn {
+    border: 1px solid var(--twitterBlue);
+    color: var(--twitterBlue);
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 60px;
+    display: inline-block;
+    margin-left: 15px;
+}
+.profileMessageBtn:hover,
+.followBtn:hover {
+    background-color: rgba(158, 215, 255, 0.861);
+    border-color: var(--twitterBlue_disabled);
+    color: rgb(110, 110, 110);
+}
+.following {
+    background-color: var(--twitterBlue);
+    color: #fff;
+}
+.profileMessageBtn > i {
+    margin: 0;
+}
+
+.userDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    padding: var(--defaultPadding);
+}
+.followersContainer .value {
+    font-weight: bold;
+    margin-right: 5px;
+}
+.followersContainer span:not(.value) {
+    color: rgb(41, 41, 41);
+}
+
+.followersContainer a {
+    margin-right: 15px;
+}
+.followersContainer a:hover {
+    border-bottom: 1px solid black;
+}
+
+.tabsContainer {
+    display: flex;
+    border-bottom: 1px solid var(--lightGray);
+    flex-shrink: 0;
+}
+
+.tab {
+    flex: 1;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333333;
+    font-weight: bold;
+}
+.tabsContainer .active {
+    color: var(--twitterBlue);
+    border-bottom: 2px solid var(--twitterBlue);
+}
+.tab:hover {
+    color: var(--twitterBlue);
+    background-color: aliceblue;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.wrapper > .row {
+    margin: 0;
+}
+
+.resultsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultsContainer .user {
+    padding: var(--defaultPadding);
+    display: flex;
+    border: 1px solid var(--darkGray);
+}
+.user .userDetailsContainer {
+    flex: 1;
+    padding: 0 var(--defaultPadding);
+}
+
+.profilePicUploadBtn,
+.coverPhotoUploadBtn {
+    position: absolute;
+    font-size: 35px;
+    color: rgb(0, 0, 0);
+    display: none;
+}
+.profilePicUploadBtn:hover > i {
+    display: block;
+}
+.userCoverPhotoContainer .userImageContainer > img:hover,
+.userCoverPhotoContainer .userCoverPhoto > img:hover {
+    filter: blur(2px);
+}
+.userImageContainer:hover .profilePicUploadBtn,
+.userCoverPhotoContainer:hover .coverPhotoUploadBtn {
+    display: block;
+}
+.userCoverPhoto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+#imagePreview,
+#coverPhotoPreview {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.userCoverPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.active.pin {
+    color: var(--twitterBlue);
+}
+
+.pinnedPost {
+    font-size: 0.8rem;
+    color: rgb(55, 55, 55);
+    margin: 2px;
+    padding: 1px;
+}
+
+.pinnedPostContainer {
+    border-bottom: 10px solid rgb(230, 236, 240);
+}
+
+/* Search styles */
+.searchBarContainer {
+    position: relative;
+    color: rgb(110, 110, 110);
+    padding: 10px var(--defaultPadding);
+}
+.searchBarContainer i {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+}
+
+.searchBarContainer #searchBox {
+    height: 40px;
+    width: 100%;
+    padding: 5px 15px 5px 40px;
+    border-radius: 30px;
+    background-color: rgb(207, 206, 206);
+    border: none;
+    color: rgb(41, 41, 41);
+}
+
+/* CHAT AND INBOX STYLES */
+
+.chatPageContainer {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 0 !important;
+    flex: 1;
+    min-height: 0;
+}
+
+.chatTitle {
+    border-bottom: 1px solid rgb(155, 155, 155);
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+    padding: 10px;
+}
+
+.chatTitle label {
+    margin: 0 10px 0 0;
+}
+
+#userSearchBox {
+    border: none;
+    flex: 1;
+    min-width: 350px;
+    font-weight: 200;
+}
+
+#createChatButton {
+    border: none;
+    background-color: var(--twitterBlue);
+    padding: 8px 24px;
+    margin: 10px auto;
+    color: #fff;
+    border-radius: 40px;
+}
+#createChatButton:disabled {
+    background-color: grey;
+    color: #333333;
+}
+
+.selectedUser {
+    font-weight: 300;
+    background-color: #cbe5fe;
+    color: #0084ff;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 5px 5px 0 0;
+    display: inline-block;
+}
+
+.chatListItem,
+.resultListItem {
+    padding: 8px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-bottom: 1px solid grey;
+}
+.resultListItem.active {
+    background-color: rgba(149, 214, 255, 0.337);
+}
+.chatListItem:hover,
+.resultListItem:hover {
+    background-color: #f2f2f2;
+}
+.chatDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.chatDetailsContainer .heading {
+    font-weight: 500;
+}
+.chatDetailsContainer .subText {
+    color: grey;
+    font-size: 14px;
+}
+
+.chatListItem img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.resultsImageContainer {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.groupChatImage img {
+    height: 65%;
+    width: 65%;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    border: 2px solid #fff;
+}
+
+.groupChatImage img:first-of-type {
+    top: 0;
+    right: 0;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatTitleSection {
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
+    padding: var(--defaultPadding);
+}
+
+#chatName {
+    width: 100%;
+    border: 1px solid transparent;
+    padding: 0 5px;
+}
+
+#chatName:hover {
+    border: 1px solid grey;
+    cursor: text;
+}
+.chatPageContainer {
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+}
+.chatContentContainer {
+    display: flex;
+    height: 100%;
+    overflow-y: hidden;
+}
+.chatContent {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+.chatContent .footer {
+    display: flex;
+    padding: var(--defaultPadding);
+    flex-shrink: 0;
+}
+
+.chatContent .footer textarea {
+    flex: 1;
+    resize: none;
+    background-color: rgba(0, 0, 0, 0.09);
+    border-radius: 16px;
+    border: none;
+    padding: 12px;
+    height: 48px;
+}
+
+.chatContent .footer button {
+    background-color: transparent;
+    color: #0084ff;
+    font-size: 20px;
+    margin-left: 3px;
+}
+
+.chatMessages {
+    flex: 1;
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+    padding: var(--defaultPadding);
+}
+
+.chatImagesContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatImagesContainer img {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.chatImagesContainer .userCount {
+    height: 40px;
+    width: 40px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 2px solid #fff;
+    font-weight: bold;
+}
+
+.chatImagesContainer img:not(:last-child) {
+    margin-left: -10px;
+}
+
+#chatNameText {
+    width: 100%;
+    padding: 8px;
+    border: none;
+}
+
+.chatMessages .message {
+    padding-bottom: 2px;
+    list-style: none;
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.chatMessages .message .messageBody,
+.typing-dots img {
+    background-color: #f1f0f0;
+    padding: 8px 14px;
+    border-radius: 24px;
+    font-size: 16px;
+}
+
+.typing-dots img {
+    height: 64px;
+    background-color: #fff;
+}
+
+.typing-dots {
+    padding: 0 var(--defaultPadding);
+    display: none;
+}
+
+.chatMessages .message .messageContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 55%;
+}
+
+.chatMessages .message.mine .messageContainer {
+    align-items: flex-end;
+}
+.chatMessages .message.theirs .messageContainer {
+    align-items: flex-start;
+}
+
+.chatMessages .mine {
+    flex-direction: row-reverse;
+}
+
+.chatMessages .mine .messageBody {
+    background-color: var(--twitterBlue);
+    color: #fff;
+}
+
+.chatMessages .message.mine.first .messageBody {
+    border-bottom-right-radius: 2px;
+}
+.chatMessages .message.mine:not(.first):not(.last) .messageBody {
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.chatMessages .message.mine.last .messageBody {
+    border-bottom-right-radius: 18px;
+}
+.chatMessages .message.mine.last:not(.first) .messageBody {
+    border-top-right-radius: 2px;
+}
+
+.chatMessages .message.theirs.first .messageBody {
+    border-bottom-left-radius: 2px;
+}
+.chatMessages .message.theirs:not(.first):not(.last) .messageBody {
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+}
+.chatMessages .message.theirs.last .messageBody {
+    border-bottom-left-radius: 18px;
+}
+.chatMessages .message.theirs.last:not(.first) .messageBody {
+    border-top-left-radius: 2px;
+}
+
+.sendername {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.chatMessages .imageContainer {
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+}
+
+.chatMessages img {
+    height: 100%;
+    border-radius: 50%;
+    vertical-align: bottom;
+}
+
+.chatMessages .message.last {
+    margin-bottom: 8px;
+}
+
+.resultsDetailsContainer {
+    margin-left: 4px;
+}
+
+.resultListItem.notification * {
+    pointer-events: none;
+}
+
+#notificationBadge,
+#messageBadge {
+    background-color: #ff3400b5;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    position: absolute;
+    top: -2px;
+    right: -15px;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+#notificationBadge.active,
+#messageBadge.active {
+    visibility: visible;
+}
+
+#notificationList {
+    position: fixed;
+    top: 8px;
+    right: 12px;
+    width: 350px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+#notificationList a {
+    border-bottom: none;
+    padding: 4px;
+    background-color: lightgray;
+}

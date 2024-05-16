@@ -1,0 +1,29 @@
+extends layouts/login-layout.pug
+
+block content
+    .loginContainer
+        i.fa-brands.fa-twitter
+        h1 Register 
+        form#registrationForm(method="POST", onSubmit="event.preventDefault(); validateForm();")
+            p.errorMsg #{error}
+            input(type="text", name="firstName", placeholder="First name", required="", value=firstName)
+            input(type="text", name="lastName", placeholder="Last name", required="", value=lastName)
+            input(type="text", name="username", placeholder="Username", required="", value=lastName)
+            input(type="email", name="email", placeholder="email", required="", value=email)
+            input#password(type="password", name="password", placeholder="password", required="", value=password)
+            input#confirm-password(type="password", name="passwordConfirm", placeholder="Confirm password", required="", value=passwordConfirm)
+            input(type="submit", value="Register")
+        a(href="/login") Already have an account? Login here.
+
+    script. 
+        var passwordField = document.getElementById("password");
+        var confirmPassword = document.getElementById("confirm-password");
+        var form = document.getElementById("registrationForm");
+
+        function validateForm(){
+            if(passwordField.value != confirmPassword.value)
+                alert("Passwords donot match. Please try again!")
+            else
+                form.submit();
+            
+        }

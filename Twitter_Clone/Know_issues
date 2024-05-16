@@ -1,0 +1,16 @@
+KNOWN ISSUES - 
+    1. when opening reply modal on viewing a post the modal has UI inconsistencies.
+    2. Responsive design is not yet implemented.
+    3. With lengthy usernames the retweeted By tag on top of posts doesnot fit the content inside.
+    4. Posts and comments related to each other should be shown together.
+    5. Hover over others profile pictures causes it to blur. Add a view profile picture icon  to fix it. 
+
+
+
+ADDITIONAL FEATURES -
+    1. Ability to add video, images and audio
+    2. Public Account and private accounts + Better profile management
+    3. #hashtag features
+    4. @username is a link.
+
+    

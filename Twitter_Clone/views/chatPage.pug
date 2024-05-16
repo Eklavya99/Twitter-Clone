@@ -1,0 +1,24 @@
+extends layouts/main-layout.pug
+
+block content
+    if errorMessage
+        span.no-results #{errorMessage}
+    else
+        script.
+            let chatId = '!{chat._id}';
+        .chatPageContainer
+            .chatTitleSection
+                +createChatImage(chat, loggedInUser) 
+                span#chatName(data-bs-toggle="modal", data-bs-target="#modifyChatNameModal") 
+            .chatContentContainer
+                .chatContent(data-room=chat._id)
+                    ul.chatMessages
+                    .typing-dots
+                        img(src="/img/dots.gif", alt="Typing dots")
+                    .footer 
+                        textarea.inputTextBox(name="userMessage", placeholder="Type a message...")
+                        button.sendMessage 
+                            i.fas.fa-paper-plane
+        +modifyChatNameModal(chat) 
+block scripts
+    script(src="/js/chatPage.js")

@@ -1,0 +1,17 @@
+extends layouts/main-layout.pug
+block content 
+    if !userProfile
+        span.user-not-found-msg Check the username to see if its correct!
+    else
+        script.
+            let userId = "!{userProfile._id}";
+            let selectedTab = "!{selectedTab}";
+        .tabsContainer 
+            +createTab("Following", `/profile/${userProfile.username}/following`, selectedTab != "followers")               
+            +createTab("Followers", `/profile/${userProfile.username}/followers`, selectedTab == "followers")               
+        .resultsContainer
+                      
+        
+
+block scripts
+    script(src="/js/followers.js")

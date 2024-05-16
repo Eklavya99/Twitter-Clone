@@ -1,0 +1,463 @@
+:root {
+    --twitterBlue: #1da1f2;
+    --twitterBlue_disabled: #65b4e2d0;
+    --lightGray: #babdc0;
+    --darkGray: #bebebe98;
+    --defaultPadding: 15px;
+}
+
+/* ---MAIN LAYOUT STYLES--- */
+
+html {
+    height: 100vh;
+}
+body {
+    height: 100vh;
+}
+
+* {
+    outline: none !important;
+    font-family: "Work Sans", sans-serif;
+}
+h1 {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+.nav-bar {
+    position: fixed;
+    top: 20%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: flex-start;
+    /*   */
+    border-left: 0.3px dashed var(--lightGray);
+    max-width: 13%;
+}
+.nav-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 1.5rem;
+    height: 55px;
+}
+a > i {
+    font-size: 1.3rem;
+    margin-right: 0.8rem;
+}
+.nav-bar a:hover {
+    background-color: #fff;
+    color: var(--twitterBlue);
+    border-radius: 25%;
+}
+button {
+    background-color: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.3);
+}
+button i,
+button span {
+    pointer-events: none;
+}
+a.logo > i {
+    color: var(--twitterBlue);
+    font-size: 2rem;
+}
+
+.mainSectionContainer {
+    max-width: 60%;
+    height: auto;
+    flex-grow: 1;
+    padding: 0;
+    width: 70%;
+    border-left: 1px solid var(--darkGray);
+    border-right: 1px solid var(--darkGray);
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer {
+    height: 60px;
+    padding: 8px var(--defaultPadding);
+    display: flex;
+    align-items: center;
+    border-bottom: 1.3px solid var(--lightGray);
+    flex-shrink: 0;
+}
+
+.titleContainer h1 {
+    flex: 1;
+    font-size: 25px;
+}
+
+/* ---POST STYLES--- */
+
+.postFormContainer {
+    display: flex;
+    padding: var(--defaultPadding);
+    border-bottom: 1px solid var(--lightGray);
+    flex-shrink: 0;
+}
+.postBody {
+    display: flex;
+    /* align-content: flex-start; */
+    justify-content: flex-start;
+    padding: 4px;
+    margin: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.userImageContainer {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
+.userImageContainer img {
+    width: 100%;
+    border-radius: 50%;
+    background-color: white;
+}
+.textAreaContainer {
+    flex: 1;
+    padding: var(--defaultPadding);
+}
+.textAreaContainer textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    font-size: 1.2rem;
+}
+#submitPost {
+    background-color: var(--twitterBlue);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 16px;
+}
+#submitPost:disabled {
+    background-color: var(--twitterBlue_disabled);
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    padding: var(--defaultPadding);
+    cursor: pointer;
+    border-bottom: 1px solid var(--lightGray);
+    flex-shrink: 0;
+    width: 100%;
+}
+.postContentContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    padding: var(--defaultPadding);
+}
+.postContent {
+    padding-left: var(--defaultPadding);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.username,
+.date {
+    color: rgb(155, 155, 155);
+}
+.displayName {
+    font-weight: bolder;
+}
+.displayName:hover {
+    text-decoration: underline;
+}
+
+.postFooter {
+    display: flex;
+    align-items: center;
+}
+
+.postFooter .postButton {
+    flex: 1;
+    display: flex;
+}
+.postFooter .postButton button {
+    padding: 0 5px;
+}
+.postHeader a,
+.header span {
+    padding-right: 5px;
+}
+
+.postButton button:hover {
+    background-color: #d4edff;
+    color: var(--twitterBlue);
+    border-radius: 50%;
+}
+
+.postButton.red button.active {
+    color: rgb(226, 34, 94);
+}
+.postButton.green button.active {
+    color: rgb(23, 191, 99);
+}
+
+.retweet-info {
+    padding: 5px;
+    font-size: 0.8rem;
+    color: rgb(0, 0, 0);
+    margin-bottom: 4px;
+    margin-left: 4px;
+    background-color: #a9a9a942;
+    border-radius: 8px;
+    width: 20%;
+    max-width: 30%;
+}
+
+.modal .post {
+    background: aliceblue;
+    padding: 0 0 var(--defaultPadding) 0;
+}
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 8px;
+}
+
+/* ---REPLY POST STYLES--- */
+
+.replyFormContainer {
+    display: flex;
+    flex-shrink: 0;
+    border-bottom: none;
+    padding: var(--defaultPadding);
+}
+#submitReply {
+    background-color: var(--twitterBlue);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 16px;
+}
+
+span.no-results {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    font-size: 1.5rem;
+}
+
+.replyFlag {
+    margin-bottom: 5px;
+}
+
+.replyFlag a {
+    color: rgba(0, 170, 255, 0.888);
+}
+.focus {
+    background-color: aliceblue;
+}
+
+.postHeader {
+    display: flex;
+}
+.postHeader .date {
+    flex: 1;
+}
+
+.user-not-found-msg {
+    padding: var(--defaultPadding);
+}
+
+.ProfileHeader .userCoverPhotoContainer {
+    height: 180px;
+    background-color: var(--twitterBlue);
+    position: relative;
+}
+
+.ProfileHeader .userImageContainer {
+    height: 132px;
+    width: 132px;
+    margin-left: 15px;
+    position: absolute;
+    bottom: -66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ProfileHeader .userImageContainer img {
+    border: 4px solid #fff;
+}
+.profileButtons {
+    text-align: right;
+    padding: var(--defaultPadding);
+    min-height: 66px;
+}
+
+.profileMessageBtn,
+.followBtn {
+    border: 1px solid var(--twitterBlue);
+    color: var(--twitterBlue);
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 60px;
+    display: inline-block;
+    margin-left: 15px;
+}
+.profileMessageBtn:hover,
+.followBtn:hover {
+    background-color: rgba(158, 215, 255, 0.861);
+    border-color: var(--twitterBlue_disabled);
+    color: rgb(110, 110, 110);
+}
+.following {
+    background-color: var(--twitterBlue);
+    color: #fff;
+}
+.profileMessageBtn > i {
+    margin: 0;
+}
+
+.userDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    padding: var(--defaultPadding);
+}
+.followersContainer .value {
+    font-weight: bold;
+    margin-right: 5px;
+}
+.followersContainer span:not(.value) {
+    color: rgb(41, 41, 41);
+}
+
+.followersContainer a {
+    margin-right: 15px;
+}
+.followersContainer a:hover {
+    border-bottom: 1px solid black;
+}
+
+.tabsContainer {
+    display: flex;
+    border-bottom: 1px solid var(--lightGray);
+    flex-shrink: 0;
+}
+
+.tab {
+    flex: 1;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333333;
+    font-weight: bold;
+}
+.tabsContainer .active {
+    color: var(--twitterBlue);
+    border-bottom: 2px solid var(--twitterBlue);
+}
+.tab:hover {
+    color: var(--twitterBlue);
+    background-color: aliceblue;
+}
+
+.wrapper > .row {
+    margin: 0;
+}
+
+.resultsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultsContainer .user {
+    padding: var(--defaultPadding);
+    display: flex;
+    border: 1px solid var(--darkGray);
+}
+.user .userDetailsContainer {
+    flex: 1;
+    padding: 0 var(--defaultPadding);
+}
+
+.profilePicUploadBtn,
+.coverPhotoUploadBtn {
+    position: absolute;
+    font-size: 35px;
+    color: rgb(0, 0, 0);
+    display: none;
+}
+.profilePicUploadBtn:hover > i {
+    display: block;
+}
+.userCoverPhotoContainer .userImageContainer > img:hover,
+.userCoverPhotoContainer .userCoverPhoto > img:hover {
+    filter: blur(2px);
+}
+.userImageContainer:hover .profilePicUploadBtn,
+.userCoverPhotoContainer:hover .coverPhotoUploadBtn {
+    display: block;
+}
+.userCoverPhoto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+#imagePreview,
+#coverPhotoPreview {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.userCoverPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.active.pin {
+    color: var(--twitterBlue);
+}
+
+.pinnedPost {
+    font-size: 0.8rem;
+    color: rgb(55, 55, 55);
+    margin: 2px;
+    padding: 1px;
+}
+
+.pinnedPostContainer {
+    border-bottom: 10px solid rgb(230, 236, 240);
+}
+
+/* Search styles */
+.searchBarContainer {
+    position: relative;
+    color: rgb(110, 110, 110);
+    padding: 10px var(--defaultPadding);
+}
+.searchBarContainer i {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+}
+
+.searchBarContainer #searchBox {
+    height: 40px;
+    width: 100%;
+    padding: 5px 15px 5px 40px;
+    border-radius: 30px;
+    background-color: rgb(207, 206, 206);
+    border: none;
+    color: rgb(41, 41, 41);
+}
