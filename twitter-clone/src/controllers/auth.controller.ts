@@ -36,7 +36,7 @@ export class AuthController {
     refreshToken = async (req: Request, res: Response, next : NextFunction) => {
         try{
             const refreshToken = req.cookies?.refreshToken;
-            const newTokens = await this.authService.refreshTokens(refreshToken);
+            const newTokens = await this.authService.refreshTokens(refreshToken, req);
             this.setAuthCookies(res, newTokens);
             res.status(200).json({ success: true, data: newTokens });
         }

@@ -56,7 +56,7 @@ export class AuthService {
         };
     }
 
-    async refreshTokens(refreshToken: string) {
+    async refreshTokens(refreshToken: string, req : Request) {
         if(!refreshToken){
             throw new AppError("Refresh token is required", 401);
         }
@@ -73,7 +73,7 @@ export class AuthService {
             await this.sessionRepository.revokeSession(refreshToken);
             const newAccessToken = generateAccessToken(user);
             const newRefreshToken = generateRefeshToken(user);
-            await this.createSession(user._id.toString(), newRefreshToken);
+            await this.createSession(user._id.toString(), newRefreshToken, req?.headers["user-agent"], req?.ip as string);
             return {
                 accessToken: newAccessToken,
                 refreshToken: newRefreshToken
