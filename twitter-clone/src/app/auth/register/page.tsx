@@ -2,46 +2,61 @@
 
 import Link from "next/link";
 import { useState } from "react";
-//import { FaTwitter } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
-  const [error, setError] = useState("");
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
+  const router = useRouter();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
-    // Simple password match validation
-    if (formData.password !== formData.passwordConfirm) {
-      setError("Passwords do not match. Please try again!");
+    if (!firstName || !lastName || !username || !email || !password || !passwordConfirm) {
+      setError("All fields are required.");
       return;
     }
+    if (password !== passwordConfirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+    setLoading(true);
 
-    setError("");
-    console.log("Registering:", formData);
-
-    // TODO: hook up to backend API
-    // fetch("/api/register", { method: "POST", body: JSON.stringify(formData) })
-  };
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ firstName, lastName, username, email, password }),
+      });
+      const data = await response.json().catch(() => { });
+      if (!response.ok) {
+        const msg = data?.message || 'Registration failed. Please try again.';
+        setError(msg);
+        setLoading(false);
+        return;
+      }
+      router.push('/login');
+    }
+    catch (err: any) {
+      setError(err.message || 'An unexpected error occurred. Please try again.');
+    }
+    finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="loginContainer flex flex-col items-center">
       {/* Twitter Icon */}
-      <i className="fa-brands fa-twitter text-sky-500 text-4xl mb-3" suppressHydrationWarning/>
+      <i className="fa-brands fa-twitter text-sky-500 text-4xl mb-3" suppressHydrationWarning />
 
       {/* Heading */}
       <h1 className="text-2xl text-black font-bold mb-4 tracking-[8px]">SIGN UP</h1>
@@ -58,8 +73,8 @@ export default function RegisterPage() {
           type="text"
           name="firstName"
           placeholder="First name"
-          value={formData.firstName}
-          onChange={handleChange}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -71,8 +86,8 @@ export default function RegisterPage() {
           type="text"
           name="lastName"
           placeholder="Last name"
-          value={formData.lastName}
-          onChange={handleChange}
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -84,8 +99,8 @@ export default function RegisterPage() {
           type="text"
           name="username"
           placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -97,8 +112,8 @@ export default function RegisterPage() {
           type="email"
           name="email"
           placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -111,8 +126,8 @@ export default function RegisterPage() {
           type="password"
           name="password"
           placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -125,8 +140,8 @@ export default function RegisterPage() {
           type="password"
           name="passwordConfirm"
           placeholder="Confirm password"
-          value={formData.passwordConfirm}
-          onChange={handleChange}
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -142,7 +157,7 @@ export default function RegisterPage() {
       </form>
 
       {/* Link to Login */}
-      <Link href="/login" className="mt-4 text-sky-500 hover:underline text-sm hover:text-sky-700">
+      <Link href="/auth/login" className="mt-4 text-sky-500 hover:underline text-sm hover:text-sky-700">
         Already have an account? Login here.
       </Link>
     </div>

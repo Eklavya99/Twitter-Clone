@@ -2,26 +2,49 @@
 
 import Link from "next/link";
 import { useState } from "react";
-//import { FaTwitter } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [error, setError] = useState("");
+  const router = useRouter();
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const username = formData.get("logUser") as string;
-    const password = formData.get("logUserPassword") as string;
+    setError(null);
 
     // TODO: Hook this up to your backend login API
-    if (!username || !password) {
-      setError("Please fill in both fields");
+    if (!userEmail || !userPassword) {
+      setError("Please enter Email & password to login.");
       return;
     }
 
-    console.log("Logging in with:", { username, password });
-    setError(""); // clear error
+    setLoading(true);
+
+    try{
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email: userEmail, password: userPassword }),
+      });
+      const data = await response.json().catch(() => {});
+      if (!response.ok) {
+        const msg = data?.message || 'Login failed. Please try again.';
+        setError(msg);
+        setLoading(false);
+        return;
+      }
+      router.push('/');
+    }
+    catch (err : any) {
+      setError(err.message || 'An unexpected error occurred. Please try again.');      
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,6 +66,8 @@ export default function LoginPage() {
           type="text"
           name="logUser"
           placeholder="Username or Email"
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
           required
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
@@ -55,6 +80,8 @@ export default function LoginPage() {
           name="logUserPassword"
           placeholder="Password"
           required
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
           className="w-full border border-gray-300 rounded-[25px] p-2 
              focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
              placeholder-gray-500 text-gray-900 focus:outline-none 
@@ -71,7 +98,7 @@ export default function LoginPage() {
 
       {/* Link to Register */}
       <Link
-        href="/register"
+        href="/auth/register"
         className="mt-4 text-sky-500 hover:underline text-sm"
       >
         Need an account? Register here.

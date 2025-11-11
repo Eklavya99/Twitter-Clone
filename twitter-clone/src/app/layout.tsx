@@ -1,6 +1,8 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import Sidebar from "@/components/Sidebar";
+import SidebarWrapper from "@/components/SidebarWrapper";
+
+//const Sidebar = dynamic<{children : ReactNode}>(() => import("@/components/Sidebar"), { ssr: false });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 
@@ -8,7 +10,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="font-sans min-h-screen tracking-[2px] !bg-white">
 
-        <Sidebar>{children}</Sidebar>
+        <SidebarWrapper>{children}</SidebarWrapper>
         <div
           id="notificationList"
           className="fixed top-2 right-3 w-[350px] shadow-md hidden"
