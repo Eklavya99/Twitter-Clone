@@ -8,7 +8,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,14 +23,14 @@ export default function LoginPage() {
 
     setLoading(true);
 
-    try{
+    try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ email: userEmail, password: userPassword }),
       });
-      const data = await response.json().catch(() => {});
+      const data = await response.json().catch(() => { });
       if (!response.ok) {
         const msg = data?.message || 'Login failed. Please try again.';
         setError(msg);
@@ -39,8 +39,11 @@ export default function LoginPage() {
       }
       router.push('/');
     }
-    catch (err : any) {
-      setError(err.message || 'An unexpected error occurred. Please try again.');      
+    catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || 'An unexpected error occurred. Please try again.');
+      }
+
     }
     finally {
       setLoading(false);
@@ -50,7 +53,7 @@ export default function LoginPage() {
   return (
     <div className="loginContainer flex flex-col items-center">
       {/* Twitter Icon */}
-      <i className="fa-twitter fa-brands text-sky-500 text-4xl mb-3" suppressHydrationWarning/>
+      <i className="fa-twitter fa-brands text-sky-500 text-4xl mb-3" suppressHydrationWarning />
 
       {/* Heading */}
       <h1 className="text-2xl font-bold mb-4 text-[black] tracking-[8px]">SIGN IN </h1>

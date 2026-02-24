@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,8 +45,10 @@ export default function RegisterPage() {
       }
       router.push('/login');
     }
-    catch (err: any) {
-      setError(err.message || 'An unexpected error occurred. Please try again.');
+    catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || 'An unexpected error occurred. Please try again.');
+      }
     }
     finally {
       setLoading(false);

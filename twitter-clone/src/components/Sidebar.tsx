@@ -27,7 +27,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     }
     return (
         <>
-            <nav className="fixed top-[25%] left-[18%] flex flex-col max-w-[13%] space-y-2">
+            <nav className="fixed top-[25%] left-[10%] flex flex-col max-w-[13%] space-y-2">
                 <Link href="/" className="flex items-center p-3 text-lg hover:text-sky-500 relative">
                     <i className="fa-brands fa-twitter text-sky-500 text-2xl mr-2" suppressHydrationWarning />
                 </Link>
@@ -68,7 +68,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                     <span className="text-black">Logout</span>
                 </button>
             </nav>
-            <main className={"flex-1 min-h-screen ml-[30%] mr-[10%] border-x border-gray-300"}>
+            <main className={"flex-1 min-h-screen ml-[18%] mr-[10%]"}>
                 <div className="flex flex-col h-full">{children}</div>
             </main>
         </>
